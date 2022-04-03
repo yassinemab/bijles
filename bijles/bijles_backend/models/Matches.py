@@ -4,10 +4,10 @@ from .MatchStatusses import MatchStatusses as MatchStatusModel
 from .Users import Users as UsersModel
 
 class Matches(models.Model):
-    student = models.ForeignKey(
-        UsersModel, on_delete=models.CASCADE, related_name='students')
-    teacher = models.ForeignKey(
-        UsersModel, on_delete=models.CASCADE, related_name='teachers')
+    initiator = models.ForeignKey(
+        UsersModel, on_delete=models.CASCADE, related_name='initiator')
+    target = models.ForeignKey(
+        UsersModel, on_delete=models.CASCADE, related_name='target')
     match_status = models.ForeignKey(
         MatchStatusModel, on_delete=models.CASCADE)
 

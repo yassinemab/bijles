@@ -13,3 +13,7 @@ from .Reviews import Reviews
 from .Roles import Roles
 from .RolesPermissions import RolesPermissions
 from .UserSubjects import UserSubjects
+from .Availability import Availability
+from .UserAvailability import UserAvailability
+from .Languages import Languages
+from .Levels import Levels

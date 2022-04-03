@@ -9,6 +9,3 @@ class Applications(models.Model):
     motivation = models.CharField(max_length=500)
     teacher = models.ForeignKey(UsersModel, on_delete=models.CASCADE)
     price = models.FloatField(default=None, blank=True, null=True)
-
-    def __str__(self):
-        return self.motivation

@@ -1,3 +1,16 @@
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from bijles_backend.views.UsersView import getUser
+from rest_framework.exceptions import AuthenticationFailed
+from ..models import Users
+from ..models.Roles import Roles as RolesModel
+import bcrypt
+import jwt
+import datetime
+from . import ProfilesView
+
+
 @api_view(['POST'])
 def register(request):
     email = request.data["email"]
@@ -8,7 +21,7 @@ def register(request):
     user = Users.objects.create(
         email=email, password=password, role=role)
     user.save()
-    addProfile(request, user)
+    ProfilesView.addProfile(request, user)
     return Response(data={'message': True})
 
 
@@ -46,3 +59,24 @@ def logout(request):
     print(response)
     response.delete_cookie('jwt')
     return Response({"message": True})
+
+
+@api_view(['PUT'])
+def changePassword(request):
+    user = getUser(request._request)
+    user = Users.objects.filter(id=user.data["id"]).first()
+    if not user:
+        raise AuthenticationFailed("User not found")
+
+    password = request.data["old_password"].encode("utf-8")
+    user_password = user.password[2: -1:].encode("utf-8")
+    if not bcrypt.checkpw(password, user_password):
+        raise AuthenticationFailed("Wrong old password")
+
+    if request.data["new_password"] != request.data["confirm_new_password"]:
+        raise AuthenticationFailed("Passwords do not match")
+
+    user.password = bcrypt.hashpw(
+        request.data["new_password"].encode('utf-8'), bcrypt.gensalt())
+    user.save()
+    return Response({'message': True})

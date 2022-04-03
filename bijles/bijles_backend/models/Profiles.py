@@ -11,6 +11,7 @@ class Profiles(models.Model):
     private = models.BooleanField(default=True)
     online = models.BooleanField(default=True)
     physical = models.BooleanField(default=True)
+    gender = models.CharField(default="V", max_length=3)
     location = models.ForeignKey(Locations.Locations, on_delete=models.CASCADE, default=None, blank=True, null=True)
     user = models.ForeignKey(UsersModel, on_delete=models.CASCADE, default=None, blank=True, null=True)
 
