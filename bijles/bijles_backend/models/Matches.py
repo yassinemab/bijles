@@ -1,13 +1,15 @@
 from rest_framework.response import Response
 from django.db import models
+from .MatchStatusses import MatchStatusses as MatchStatusModel
+from .Users import Users as UsersModel
 
 class Matches(models.Model):
     student = models.ForeignKey(
-        Users, on_delete=models.CASCADE, related_name='students')
+        UsersModel, on_delete=models.CASCADE, related_name='students')
     teacher = models.ForeignKey(
-        Users, on_delete=models.CASCADE, related_name='teachers')
+        UsersModel, on_delete=models.CASCADE, related_name='teachers')
     match_status = models.ForeignKey(
-        MatchStatusses, on_delete=models.CASCADE)
+        MatchStatusModel, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.match_status
