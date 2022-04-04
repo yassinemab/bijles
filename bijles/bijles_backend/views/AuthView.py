@@ -56,7 +56,6 @@ def login(request):
 @api_view(['POST'])
 def logout(request):
     response = Response()
-    print(response)
     response.delete_cookie('jwt')
     return Response({"message": True})
 

@@ -7,6 +7,7 @@ class Reviews(models.Model):
         UsersModel, on_delete=models.CASCADE, related_name='hallo')
     teacher = models.ForeignKey(
         UsersModel, on_delete=models.CASCADE, related_name='jemama')
+    title = models.CharField(max_length=100)
     content = models.CharField(max_length=500)
     rating = models.IntegerField(default=1)
 

@@ -5,7 +5,7 @@ from .Users import Users as UsersModel
 
 class Profiles(models.Model):
     full_name = models.CharField(max_length=255)
-    biography = models.CharField(max_length=100, default=None, blank=True, null=True)
+    biography = models.CharField(max_length=300, default=None, blank=True, null=True)
     profile_picture = models.FileField(default=None, blank=True, null=True)
     phone_number = models.CharField(max_length=20)
     private = models.BooleanField(default=True)
